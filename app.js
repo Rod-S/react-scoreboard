@@ -17,16 +17,27 @@ const Player = () => (
         <span className="player-name">
             Rod
         </span>
-        <div className="counter">
-                <button className="counter-action decrement"> - </button>
-                <span className="counter-score">0</span>
-                <button className="counter-action increment"> + </button>
-            </div>
+        <Counter />
     </div>
 );
 
+const Counter = () => (
+    <div className="counter">
+        <button className="counter-action decrement"> - </button>
+        <span className="counter-score">0</span>
+        <button className="counter-action increment"> + </button>
+    </div>
+);
+
+const App = () => (
+    <div className="scoreboard">
+        <Header />
+        {/*Players list*/}
+        <Player />
+    </div>
+);
 
 ReactDOM.render(
-    <Player />,
+    <App />,
     document.getElementById('root')
 )
