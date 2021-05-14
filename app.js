@@ -18,6 +18,7 @@ const Header = (props) => {
 const Player = (props) => (
     <div className="player">
         <span className="player-name">
+        <button className="remove-player" onClick={ () => props.removePlayer(props.id)}>✖</button>
             {props.name}
         </span>
         <Counter />
@@ -63,26 +64,40 @@ class Counter extends React.Component {
 }
 
 class App extends React.Component{
-    state = {
-        players: [
-            {
-                name: "Guil",
-                id: 0
-            },
-            {
-                name: "Treasure",
-                id: 1
-            },
-            {
-                name: "Ashley",
-                id: 2
-            },
-            {
-                name: "James",
-                id: 3
+    constructor(props) {
+        super(props)
+        this.state = {
+            players: [
+                {
+                    name: "Guil",
+                    id: 0
+                },
+                {
+                    name: "Treasure",
+                    id: 1
+                },
+                {
+                    name: "Ashley",
+                    id: 2
+                },
+                {
+                    name: "James",
+                    id: 3
+                }
+            ]
+        };
+        this.handleRemovePlayer = this.handleRemovePlayer.bind(this);
+    }
+
+    handleRemovePlayer(id) {
+        this.setState(prevState => {
+            return {
+                players: prevState.players.filter( player =>
+                    player.id !== id
+                )
             }
-        ]
-    };
+        })
+    }
 
     render() {
         return (
@@ -94,8 +109,10 @@ class App extends React.Component{
             {/*Players List*/}
             {this.state.players.map(player =>
                 <Player
+                    id={player.id}
                     key={player.id.toString()}
                     name={player.name}
+                    removePlayer={this.handleRemovePlayer}
                 />
             )}
         </div>
